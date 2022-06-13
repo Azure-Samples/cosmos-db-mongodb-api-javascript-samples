@@ -55,7 +55,7 @@ async function main(){
     // </new_item>
 
     // <read_item> 
-    // Point read item from container using the id and partitionKey
+    // Point read item from collection using the id and partitionKey
     const foundProduct = await collection.findOne({
         _id: "68719518391", 
         category: "gear-surf-surfboards"
