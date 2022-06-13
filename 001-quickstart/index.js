@@ -3,13 +3,17 @@
 // ------------------------------------------------------------
 
 // <package_dependencies> 
+// Read .env file and set environment variables
 require('dotenv').config();
+
+// Use official mongodb driver to connect to the server
 const { MongoClient, ObjectId } = require('mongodb');
 // </package_dependencies>
 
 // <client_credentials> 
-// New instance of MongoClient
-const url = process.env.COSMOS_ENDPOINT;
+// New instance of MongoClient with connection string
+// for Cosmos DB
+const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
 // </client_credentials>
 
@@ -31,7 +35,7 @@ async function main(){
     // </new_container>
 
     // <new_item> 
-    // Create new object and upsert (create or replace) to container
+    // Create new object and upsert (create or replace) to collection
     const product = {
         _id: "68719518391",
         category: "gear-surf-surfboards",
@@ -52,14 +56,20 @@ async function main(){
 
     // <read_item> 
     // Point read item from container using the id and partitionKey
-    const foundProduct = await collection.findOne({_id: "68719518391", category: "gear-surf-surfboards"});
+    const foundProduct = await collection.findOne({
+        _id: "68719518391", 
+        category: "gear-surf-surfboards"
+    });
     console.log(`Read item:\t${ObjectId(foundProduct.id).toString()}\t[${foundProduct.category}]`);
     // </read_item>
 
     // <query_items> 
     // Create query using a SQL string and parameters
     // select all surfboards
-    const allProductsQuery = { category: "gear-surf-surfboards" };
+    const allProductsQuery = { 
+        category: "gear-surf-surfboards" 
+    };
+    
     const products = await collection.find(allProductsQuery).toArray();
     products.map((product, i ) => console.log(`${++i} Read item:\t${ObjectId(product.id).toString()}\t[${product.category}]`));
     // </query_items>
