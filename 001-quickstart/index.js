@@ -9,7 +9,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 
 // <client_credentials> 
 // New instance of MongoClient
-const url = process.env.COSMOS_ENDPOINT;
+const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
 // </client_credentials>
 
