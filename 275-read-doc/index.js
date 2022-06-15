@@ -63,16 +63,6 @@ async function main(){
     console.log(`Read doc:\t${ObjectId(foundProduct.id).toString()}\t[${foundProduct.category}]`);
     // </read_doc>
 
-    // <query_docs> 
-    // Create query to select all surfboards
-    const allProductsQuery = { 
-        category: "gear-surf-surfboards" 
-    };
-    
-    const products = await collection.find(allProductsQuery).toArray();
-    products.map((product, i ) => console.log(`${++i} Read doc:\t${ObjectId(product.id).toString()}\t[${product.category}]`));
-    // </query_docs>
-
     return "done";
 }
 
