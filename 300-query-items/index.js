@@ -27,17 +27,15 @@ async function main(){
     // <new_database> 
     // Database reference with creation if it does not already exist
     const db = client.db("adventureworks");
-    console.log(`New database:\t${db.databaseName}`);
     // </new_database>
 
     // <new_collection> 
     // Collection reference with creation if it does not already exist
     const collection = db.collection('products');
-    console.log(`New collection:\t${collection.collectionName}`);
-    // </new_collection>
+    // </new_container>
 
     // <new_doc> 
-    // Create new doc and upsert (create or replace) to collection
+    // Create new object and upsert (create or replace) to collection
     const product = {
         _id: "68719518391",
         category: "gear-surf-surfboards",
@@ -52,30 +50,27 @@ async function main(){
     const upsertResult = await collection.updateOne(query, update, options);
     
     if(upsertResult.upsertedCount ===1){
-        console.log(`Created doc:\t${upsertResult.upsertedId}\t[${product.category}]`);
+        console.log(`Created doc:\t${ObjectId(upsertResult.id).toString()}\t[${product.category}]`);
     }
     // </new_doc>
 
     // <read_doc> 
-    // Point read doc from collection:
-    // - without sharding, should use {_id}
-    // - with sharding,    should use {_id, partitionKey }, ex: {_id, category}
+    // Point read doc from container using the id and partitionKey
     const foundProduct = await collection.findOne({
         _id: "68719518391", 
         category: "gear-surf-surfboards"
     });
-    console.log(`Read doc:\t${foundProduct._id}\t[${foundProduct.category}]`);
+    console.log(`Read doc:\t${ObjectId(foundProduct.id).toString()}\t[${foundProduct.category}]`);
     // </read_doc>
 
     // <query_docs> 
-    // Create query using a SQL string and parameters
-    // select all surfboards
+    // Create query to select all surfboards
     const allProductsQuery = { 
         category: "gear-surf-surfboards" 
     };
     
     const products = await collection.find(allProductsQuery).toArray();
-    products.map((product, i ) => console.log(`${++i} filtered doc:\t${product._id}\t[${product.category}]`));
+    products.map((product, i ) => console.log(`${++i} Read doc:\t${ObjectId(product.id).toString()}\t[${product.category}]`));
     // </query_docs>
 
     return "done";
