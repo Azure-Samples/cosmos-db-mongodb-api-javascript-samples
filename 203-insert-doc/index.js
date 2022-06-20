@@ -27,7 +27,7 @@ async function main() {
   // <database_object> 
   // get database client for database 
   // if database or collection doesn't exist, it is created
-  // when the doc is inerted
+  // when the doc is inserted
 
   // insert doc
   const doc = { _id: '100', name: 'product-abc' };
