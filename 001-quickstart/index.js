@@ -7,7 +7,7 @@
 require('dotenv').config();
 
 // Use official mongodb driver to connect to the server
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient } = require('mongodb');
 // </package_dependencies>
 
 // <client_credentials> 
@@ -49,9 +49,14 @@ async function main(){
     const update = { $set: product };
     const options = {upsert: true, new: true};
 
-    const upsertResult = await collection.updateOne(query, update, options);
+    // Query on collection instance
+    const upsertResult1= await collection.updateOne(query, update, options);
+
+    // Query on chained collection instance
+    const upsertResult2 = await client.db("adventureworks").collection('products').updateOne(query, update, options);
     
-    if(upsertResult.upsertedCount ===1){
+    // Process results
+    if(upsertResult1.upsertedCount ===1){
         console.log(`Created doc:\t${upsertResult.upsertedId}\t[${product.category}]`);
     }
     // </new_doc>
@@ -74,7 +79,7 @@ async function main(){
         category: "gear-surf-surfboards" 
     };
     
-    const products = await collection.find(allProductsQuery).toArray();
+    const products = await collection.find(allProductsQuery).sort({ name: 1}).toArray();
     products.map((product, i ) => console.log(`${++i} filtered doc:\t${product._id}\t[${product.category}]`));
     // </query_docs>
 
@@ -84,4 +89,16 @@ async function main(){
 main()
   .then(console.log)
   .catch(console.error)
-  .finally(() => client.close());
+  .finally(() => {
+    // Close the db and its underlying connections
+    client.close()
+  });
+
+/*
+// <console_result>
+New database:   adventureworks
+New collection: products
+Read doc:       68719518391     [gear-surf-surfboards]
+done
+// </console_result>
+*/

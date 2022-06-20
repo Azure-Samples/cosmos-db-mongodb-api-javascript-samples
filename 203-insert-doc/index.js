@@ -24,19 +24,24 @@ async function main() {
   await client.connect();
   // </connect_client>
 
-  // <server_info> 
-  // Get server build info
-  const serverInfo = await client.db().admin().serverInfo();
-  console.log(`Server info:\n${Object.keys(serverInfo).map(key => `\t${key}: ${serverInfo[key]}\n`)}`);
+  // <database_object> 
+  // get database client for database 
+  // if database or collection doesn't exist, it is created
+  // when the doc is inerted
 
-  // Get server status
-  const serverStatus = await client.db().admin().serverStatus();
-  console.log(`Server status:\n${Object.keys(serverStatus).map(key => `\t${key}: ${serverStatus[key]}\n`)}`);
+  // insert doc
+  const doc = { _id: '100', name: 'product-abc' };
+  const insertOneResult = await client.db("adventureworks").collection("products").insertOne(doc);
+  console.log(`Insert 1 - ${JSON.stringify(insertOneResult)}`);
 
-  // List all databases
-  const dbListResult = await client.db().admin().listDatabases();
-  console.log(`Databases:\n${dbListResult.databases.map(db => `\t${db.name}\n`)}`);
-  // </server_info>
+  // insert docs
+  const docs = [
+      { _id: '101', name: 'product-abc' },
+      { _id: '102', name: 'product-cvb' }
+  ];
+  const insertManyResult = await client.db("adventureworks").collection("products").insertMany(docs);
+  console.log(`Insert many ${JSON.stringify(insertManyResult)}`);
+  // </database_object> 
 
   return "done";
 }
@@ -45,26 +50,15 @@ main()
   .then(console.log)
   .catch(console.error)
   .finally(() => {
-        // Close the db and its underlying connections
-        client.close()
-      });
+    // Close the db and its underlying connections
+    client.close()
+  });
+
 
 /*
 // <console_result>
-Server info:
-        version: 4.0.0
-,       versionArray: 4,0,0,0
-,       bits: 64
-,       maxBsonObjectSize: 16777216
-,       ok: 1
-
-Server status:
-        ok: 1
-
-Databases:
-        adventureworks
-,       oldmain
-
+Insert 1 - {"acknowledged":true,"insertedId":"100"}
+Insert many {"acknowledged":true,"insertedCount":2,"insertedIds":{"0":"101","1":"102"}}
 done
 // </console_result>
 */
