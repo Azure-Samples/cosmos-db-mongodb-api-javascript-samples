@@ -7,7 +7,7 @@
 require('dotenv').config();
 
 // Use official mongodb driver to connect to the server
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient } = require('mongodb');
 // </package_dependencies>
 
 // <client_credentials> 
@@ -24,35 +24,23 @@ async function main(){
     await client.connect();
     // </connect_client>
 
-    // <new_database> 
-    // Database reference with creation if it does not already exist
-    const db = client.db("adventureworks");
-    // </new_database>
-
-    // <new_collection> 
-    // Collection reference with creation if it does not already exist
-    const collection = db.collection('products');
-    // </new_container>
-
-    // <new_doc> 
-    // Create new object and upsert (create or replace) to collection
+    // <upsert> 
     const product = {
-        _id: "68719518391",
+        _id: "68719518111",
         category: "gear-surf-surfboards",
-        name: "Yamba Surfboard",
-        quantity: 12,
-        sale: false
+        name: "Yamba Surfboard 3",
+        quantity: 15,
+        sale: true
     };
-    const query = { name: "Yamba Surfboard"};
+
+    const query = { name: product.name};
     const update = { $set: product };
     const options = {upsert: true, new: true};
 
-    const upsertResult = await collection.updateOne(query, update, options);
+    const upsertResult = await client.db("adventureworks").collection('products').updateOne(query, update, options);
     
-    if(upsertResult.upsertedCount ===1){
-        console.log(`Created doc:\t${ObjectId(upsertResult.id).toString()}\t[${product.category}]`);
-    }
-    // </new_doc>
+    console.log(`Upsert result:\t\n${Object.keys(upsertResult).map(key => `\t${key}: ${upsertResult[key]}\n`)}`);
+    // </upsert>
 
 
     return "done";
@@ -61,4 +49,32 @@ async function main(){
 main()
   .then(console.log)
   .catch(console.error)
-  .finally(() => client.close());
+  .finally(() => {
+    // Close the db and its underlying connections
+    client.close()
+  });
+
+/*
+// <console_result_insert>
+Upsert result:
+        acknowledged: true
+,       modifiedCount: 0
+,       upsertedId: 68719518111
+,       upsertedCount: 1
+,       matchedCount: 0
+
+done
+
+// </console_result_insert>
+
+// <console_result_update>
+Upsert result:
+        acknowledged: true
+,       modifiedCount: 1
+,       upsertedId: null
+,       upsertedCount: 0
+,       matchedCount: 1
+
+done
+// </console_result_update>
+*/

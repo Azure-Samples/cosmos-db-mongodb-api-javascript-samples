@@ -24,20 +24,12 @@ async function main(){
     await client.connect();
     // </connect_client>
 
-    // <new_database> 
-    // Database reference with creation if it does not already exist
-    const db = client.db("adventureworks");
-    // </new_database>
-
-    // <new_collection> 
-    // Collection reference with creation if it does not already exist
-    const collection = db.collection('products');
-    // </new_container>
-
-    // <new_collection> 
-    // Collection reference with db object
-    const collectionWithoutDbObject = client.db("adventureworks").collection('products');
-    // </new_container>
+    // <collection> 
+    // Get all indexes in collection
+    const collectionInstance = await client.db("adventureworks").collection('products')
+    const indexes = await collectionInstance.indexes();
+    console.log(`Indexes on collection:\n${Object.keys(indexes).map(key => `\t${key}: ${JSON.stringify(indexes[key])}\n`)}`);
+    // </collection>
 
     return "done";
 }
@@ -45,4 +37,16 @@ async function main(){
 main()
   .then(console.log)
   .catch(console.error)
-  .finally(() => client.close());
+  .finally(() => {
+    // Close the db and its underlying connections
+    client.close()
+  });
+
+/*
+// <console_result>
+  Indexes on collection:
+        0: {"v":1,"key":{"_id":1},"name":"_id_","ns":"adventureworks.products"}
+
+done
+// </console_result>
+*/
