@@ -27,7 +27,7 @@ async function main(){
     // <drop_database> 
     // Drop a database, removing it permanently from the server.
     const dropDatabase = await client.db("adventureworks").dropDatabase();
-    console.log(`Read doc:\t\n${Object.keys(dropDatabase).map(key => `\t${key}: ${dropDatabase[key]}\n`)}`);
+    console.log(`Drop database:\t${JSON.stringify(dropDatabase)}`);
     // </drop_database>     
     return "done";
 }
