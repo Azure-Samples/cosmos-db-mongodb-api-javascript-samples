@@ -24,6 +24,8 @@ async function main() {
   await client.connect();
   // </connect_client>
 
+  
+  // <bulk_write>
   const doc1 = {
     _id: "901",
     category: "gear-surf-surfboards",
@@ -56,7 +58,7 @@ async function main() {
     ]);
 
   console.log(`${JSON.stringify(upsertResult)}`);
-  // </upsert>
+  // </bulk_write>
 
 
   return "done";
