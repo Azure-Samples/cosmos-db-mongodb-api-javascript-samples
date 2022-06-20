@@ -42,6 +42,7 @@ main()
 
   /*
 // <console_result>
-
+Drop database:  true
+done
 // </console_result>
 */
