@@ -57,12 +57,17 @@ async function main(){
 
     // Find all that match query
     const query5 = { category: product.category };
-    const foundAll = await client.db("adventureworks").collection('products').find(query5).toArray();
+    const foundAll = await client.db("adventureworks").collection('products').find(query5).sort({_id: 1}).toArray();
     console.log(`Matching docs:\n${foundAll.map(doc => `\t${doc._id}: ${doc.name}\n`)}`);
 
     // Find all in collection with empty query {}
     const foundAll2 = await client.db("adventureworks").collection('products').find({}).toArray();
     console.log(`All docs:\n${foundAll2.map(doc => `\t${doc._id}: ${doc.name}\n`)}`);
+
+    // Pagination - next 5 docs
+    const nextFiveDocs = await client.db("adventureworks").collection('products').find({}).sort({_id: 1}).skip(5).limit(5).toArray();
+    console.log(`All docs:\n${foundAll2.map(doc => `\t${doc._id}: ${doc.name}\n`)}`);
+
     // </read_doc> 
     return "done";
 }
