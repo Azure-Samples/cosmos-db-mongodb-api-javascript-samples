@@ -63,7 +63,7 @@ async function main(){
     // Find all in collection with empty query {}
     const foundAll2 = await client.db("adventureworks").collection('products').find({}).toArray();
     console.log(`All docs:\n${foundAll2.map(doc => `\t${doc._id}: ${doc.name}\n`)}`);
-
+    // </read_doc> 
     return "done";
 }
 
