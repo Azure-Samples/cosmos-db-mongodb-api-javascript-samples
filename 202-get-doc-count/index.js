@@ -48,7 +48,7 @@ async function main() {
       const collectionClient = dbClient.collection(collection.name);
 
       // get doc count of collection
-      const docCount = await collectionClient.count({});
+      const docCount = await collectionClient.countDocuments({});
       console.log(`\t\t\t${collection.name}: ${docCount} doc(s)\n`);
     }
   }
