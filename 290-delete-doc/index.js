@@ -26,7 +26,7 @@ async function main(){
 
     // <delete> 
     const product = {
-        _id: "68719518111",
+        _id: ObjectId("62b1f43a9446918500c875c5"),
         category: "gear-surf-surfboards",
         name: "Yamba Surfboard 3",
         quantity: 15,

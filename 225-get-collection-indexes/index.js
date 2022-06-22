@@ -7,7 +7,7 @@
 require('dotenv').config();
 
 // Use official mongodb driver to connect to the server
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient } = require('mongodb');
 // </package_dependencies>
 
 // <client_credentials> 
@@ -44,8 +44,9 @@ main()
 
 /*
 // <console_result>
-  Indexes on collection:
+Indexes on collection:
         0: {"v":1,"key":{"_id":1},"name":"_id_","ns":"adventureworks.products"}
+,       1: {"v":1,"key":{"name":1},"name":"name_1","ns":"adventureworks.products"}
 
 done
 // </console_result>
