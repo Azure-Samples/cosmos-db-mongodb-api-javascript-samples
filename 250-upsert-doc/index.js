@@ -26,7 +26,6 @@ async function main(){
 
     // <upsert> 
     const product = {
-        _id: "68719518111",
         category: "gear-surf-surfboards",
         name: "Yamba Surfboard 3",
         quantity: 15,
@@ -59,7 +58,7 @@ main()
 Upsert result:
         acknowledged: true
 ,       modifiedCount: 0
-,       upsertedId: 68719518111
+,       upsertedId: 62b1f492ff69395b30a03169
 ,       upsertedCount: 1
 ,       matchedCount: 0
 

@@ -16,7 +16,10 @@ const { MongoClient } = require('mongodb');
 const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
 
-// server options
+// connect to the server
+await client.connect();
+
+// client options
 const options = client.options
 console.log(`Options:\n${Object.keys(options).map(key => `\t${key}: ${options[key]}\n`)}`);
 // </client_credentials>

@@ -27,14 +27,12 @@ async function main() {
   
   // <bulk_write>
   const doc1 = {
-    _id: "901",
     category: "gear-surf-surfboards",
     name: "Yamba Surfboard 3",
     quantity: 15,
     sale: true
   };
   const doc2={
-    _id: "902",
     category: "gear-surf-surfboards",
     name: "Yamba Surfboard 7",
     quantity: 5,
@@ -78,13 +76,16 @@ main()
   "ok":1,
   "writeErrors":[],
   "writeConcernErrors":[],
-  "insertedIds":[{"index":0,"_id":"901"},{"index":1,"_id":"902"}],
+  "insertedIds":[
+    {"index":0,"_id":"62b23a371a09ed6441e5ee30"},
+    {"index":1,"_id":"62b23a371a09ed6441e5ee31"}],
   "nInserted":2,
   "nUpserted":0,
-  "nMatched":9,
-  "nModified":9,
+  "nMatched":10,
+  "nModified":10,
   "nRemoved":0,
   "upserted":[]
 }
+done
 // </console_result_bulk_write>
 */

@@ -5,6 +5,7 @@
 // <package_dependencies> 
 // Read .env file and set environment variables
 require('dotenv').config();
+const random = Math.floor(Math.random() * 100);
 
 // Use official mongodb driver to connect to the server
 const { MongoClient } = require('mongodb');
@@ -30,14 +31,14 @@ async function main() {
   // when the doc is inserted
 
   // insert doc
-  const doc = { _id: '100', name: 'product-abc' };
+  const doc = { name: `product-${random}` };
   const insertOneResult = await client.db("adventureworks").collection("products").insertOne(doc);
   console.log(`Insert 1 - ${JSON.stringify(insertOneResult)}`);
 
   // insert docs
   const docs = [
-      { _id: '101', name: 'product-abc' },
-      { _id: '102', name: 'product-cvb' }
+      { name: `product-${random}` },
+      { name: `product-${random}` }
   ];
   const insertManyResult = await client.db("adventureworks").collection("products").insertMany(docs);
   console.log(`Insert many ${JSON.stringify(insertManyResult)}`);
@@ -57,8 +58,8 @@ main()
 
 /*
 // <console_result>
-Insert 1 - {"acknowledged":true,"insertedId":"100"}
-Insert many {"acknowledged":true,"insertedCount":2,"insertedIds":{"0":"101","1":"102"}}
+Insert 1 - {"acknowledged":true,"insertedId":"62b2394be4042705f00fd790"}
+Insert many {"acknowledged":true,"insertedCount":2,"insertedIds":{"0":"62b2394be4042705f00fd791","1":"62b2394be4042705f00fd792"}}
 done
 // </console_result>
 */
