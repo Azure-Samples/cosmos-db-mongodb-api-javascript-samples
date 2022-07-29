@@ -2,11 +2,11 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
 
+// <aggregation_1> 
 // Goal: Find the average price of each product subcategory with 
 // the number of products in that subcategory.
 // Sort by average price descending.
 
-// <package_dependencies> 
 // Read .env file and set environment variables
 require('dotenv').config();
 
