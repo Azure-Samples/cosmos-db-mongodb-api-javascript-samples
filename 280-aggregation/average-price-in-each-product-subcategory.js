@@ -7,7 +7,7 @@
 // Sort by average price descending.
 
 /*
-// <results>
+// <console_result>
 {"_id":"Bikes, Touring Bikes","averagePrice":1425.25,"nProducts":22}
 {"_id":"Components, Saddles","averagePrice":39.63,"nProducts":9}
 {"_id":"Accessories, Bottles and Cages","averagePrice":7.99,"nProducts":3}
@@ -45,7 +45,7 @@
 {"_id":"Accessories, Cleaners","averagePrice":7.95,"nProducts":1}
 {"_id":"Accessories, Fenders","averagePrice":21.98,"nProducts":1}
 {"_id":"Clothing, Caps","averagePrice":8.99,"nProducts":1}
-// </results>
+// </console_result>
 */
 
 // <package_dependencies> 
@@ -117,11 +117,3 @@ main()
     client.close()
   });
 
-
-/*
-// <console_result>
-Insert 1 - {"acknowledged":true,"insertedId":"62b2394be4042705f00fd790"}
-Insert many {"acknowledged":true,"insertedCount":2,"insertedIds":{"0":"62b2394be4042705f00fd791","1":"62b2394be4042705f00fd792"}}
-done
-// </console_result>
-*/

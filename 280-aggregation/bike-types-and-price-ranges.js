@@ -5,11 +5,11 @@
 // Goal: Find the price range for the different bike subcategories. 
 
 /*
-// <results>
+// <console_result>
 {"_id":"Mountain Bikes","nProducts":32,"min":539.99,"avg":1683.37,"max":3399.99}
 {"_id":"Road Bikes","nProducts":43,"min":539.99,"avg":1597.45,"max":3578.27}
 {"_id":"Touring Bikes","nProducts":22,"min":742.35,"avg":1425.25,"max":2384.07}
-// </results>
+// </console_result>
 */
 
 // <package_dependencies> 
@@ -104,12 +104,3 @@ main()
     // Close the db and its underlying connections
     client.close()
   });
-
-
-/*
-// <console_result>
-Insert 1 - {"acknowledged":true,"insertedId":"62b2394be4042705f00fd790"}
-Insert many {"acknowledged":true,"insertedCount":2,"insertedIds":{"0":"62b2394be4042705f00fd791","1":"62b2394be4042705f00fd792"}}
-done
-// </console_result>
-*/
