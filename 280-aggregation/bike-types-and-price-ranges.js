@@ -2,40 +2,27 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
 
+// < aggregation_1>
 // Goal: Find the price range for the different bike subcategories. 
 
-/*
-// <console_result>
-{'name':'Mountain Bikes','nProducts':32,'min':539.99,'avg':1683.37,'max':3399.99}
-{'name':'Road Bikes','nProducts':43,'min':539.99,'avg':1597.45,'max':3578.27}
-{'name':'Touring Bikes','nProducts':22,'min':742.35,'avg':1425.25,'max':2384.07}
-// </console_result>
-*/
-
-// <package_dependencies> 
 // Read .env file and set environment variables
 require('dotenv').config();
 
 // Use official mongodb driver to connect to the server
 const { MongoClient } = require('mongodb');
-// </package_dependencies>
 
-// <client_credentials> 
 // New instance of MongoClient with connection string
 // for Cosmos DB
 const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
-// </client_credentials>
 
 async function main() {
 
   try {
-    // <connect_client>
+
     // Use connect method to connect to the server
     await client.connect();
-    // </connect_client>
 
-    // <pipeline_stages>
     const categoryName = 'Bikes';
 
     const findAllBikes = {
@@ -98,9 +85,7 @@ async function main() {
     const sortBySubcategory = { '$sort': 
         { 'name': 1 } 
     };
-    // </pipeline_stages>
 
-    // <execute_aggregation_pipeline> 
     // stages execute in order from top to bottom
     const pipeline = [
       findAllBikes,
@@ -121,7 +106,6 @@ async function main() {
     await aggCursor.forEach(product => {
       console.log(JSON.stringify(product));
     });
-    // </execute_aggregation_pipeline> 
 
     return 'done';
   } catch (err) {
@@ -134,5 +118,12 @@ main()
   .catch(console.error)
   .finally(() => {
     // Close the db and its underlying connections
-    client.close()
+    client.close();
   });
+
+// Results: 
+// {'name':'Mountain Bikes','nProducts':32,'min':539.99,'avg':1683.37,'max':3399.99}
+// {'name':'Road Bikes','nProducts':43,'min':539.99,'avg':1597.45,'max':3578.27}
+// {'name':'Touring Bikes','nProducts':22,'min':742.35,'avg':1425.25,'max':2384.07}
+
+// </aggregation_1>
