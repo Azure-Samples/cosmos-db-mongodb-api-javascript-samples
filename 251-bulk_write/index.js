@@ -2,7 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
 
-// <package_dependencies> 
+// <package_dependencies>
 // Read .env file and set environment variables
 require('dotenv').config();
 
@@ -10,56 +10,54 @@ require('dotenv').config();
 const { MongoClient } = require('mongodb');
 // </package_dependencies>
 
-// <client_credentials> 
+// <client_credentials>
 // New instance of MongoClient with connection string
 // for Cosmos DB
-const url = process.env.COSMOS_CONNECTION_STRING;
+const url = process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING;
 const client = new MongoClient(url);
 // </client_credentials>
 
 async function main() {
-
   // <connect_client>
   // Use connect method to connect to the server
   await client.connect();
   // </connect_client>
 
-  
   // <bulk_write>
   const doc1 = {
-    category: "gear-surf-surfboards",
-    name: "Yamba Surfboard 3",
+    category: 'gear-surf-surfboards',
+    name: 'Yamba Surfboard 3',
     quantity: 15,
-    sale: true
+    sale: true,
   };
-  const doc2={
-    category: "gear-surf-surfboards",
-    name: "Yamba Surfboard 7",
+  const doc2 = {
+    category: 'gear-surf-surfboards',
+    name: 'Yamba Surfboard 7',
     quantity: 5,
-    sale: true
+    sale: true,
   };
-
 
   // update docs with new property/value
   const addNewProperty = {
-    filter: { "category": "gear-surf-surfboards" },
+    filter: { category: 'gear-surf-surfboards' },
     update: { $set: { discontinued: true } },
     upsert: true,
   };
 
-
   // bulkWrite only supports insertOne, updateOne, updateMany, deleteOne, deleteMany
-  const upsertResult = await client.db("adventureworks").collection('products').bulkWrite([
-    { insertOne: {document: doc1}},
-    { insertOne: {document: doc2}},
-    { updateMany: addNewProperty},
+  const upsertResult = await client
+    .db('adventureworks')
+    .collection('products')
+    .bulkWrite([
+      { insertOne: { document: doc1 } },
+      { insertOne: { document: doc2 } },
+      { updateMany: addNewProperty },
     ]);
 
   console.log(`${JSON.stringify(upsertResult)}`);
   // </bulk_write>
 
-
-  return "done";
+  return 'done';
 }
 
 main()
@@ -67,7 +65,7 @@ main()
   .catch(console.error)
   .finally(() => {
     // Close the db and its underlying connections
-    client.close()
+    client.close();
   });
 
 /*

@@ -1,0 +1,48 @@
+{
+      "scripts": {
+        "test": "vitest",
+        "test:run": "vitest run",
+        "format": "prettier --write \"**/*.{js,json,md}\"",
+        "format:check": "prettier --check \"**/*.{js,json,md}\"",
+        "load-env": "source ./load-azure-env.sh",
+        "refresh-env": "azd env get-values > .env && echo '✅ .env file refreshed'",
+        "run:quickstart": "cd 001-quickstart && npm start",
+        "run:connection": "cd 101-client-connection-string && npm start"
+    }, "cosmos-db-mongodb-api-javascript-samples",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "test": "vitest",
+        "test:run": "vitest run",
+        "format": "prettier --write \"**/*.{js,json,md}\"",
+        "format:check": "prettier --check \"**/*.{js,json,md}\"",
+        "load-env": "bash ./scripts/load-env.sh",
+        "run:quickstart": "bash -c 'source ./scripts/load-env.sh && cd 001-quickstart && node index.js'",
+        "run:connection": "bash -c 'source ./scripts/load-env.sh && cd 101-client-connection-string && node index.js'"
+    },
+    "workspaces": [
+        "001-quickstart",
+        "101-client-connection-string",
+        "200-admin",
+        "201-does-database-exist",
+        "202-get-doc-count",
+        "203-insert-doc",
+        "225-get-collection-indexes",
+        "250-upsert-doc",
+        "251-bulk_write",
+        "252-insert-many",
+        "275-find",
+        "280-aggregation",
+        "290-delete-doc",
+        "299-drop-collection",
+        "300-drop-database"
+    ],
+    "devDependencies": {
+        "prettier": "^3.0.0",
+        "vitest": "^1.0.0"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.1",
+        "mongodb": "^6.17.0"
+    }
+}

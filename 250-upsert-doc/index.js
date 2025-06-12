@@ -2,7 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
 
-// <package_dependencies> 
+// <package_dependencies>
 // Read .env file and set environment variables
 require('dotenv').config();
 
@@ -10,39 +10,42 @@ require('dotenv').config();
 const { MongoClient } = require('mongodb');
 // </package_dependencies>
 
-// <client_credentials> 
+// <client_credentials>
 // New instance of MongoClient with connection string
 // for Cosmos DB
-const url = process.env.COSMOS_CONNECTION_STRING;
+const url = process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING;
 const client = new MongoClient(url);
 // </client_credentials>
 
-async function main(){
+async function main() {
+  // <connect_client>
+  // Use connect method to connect to the server
+  await client.connect();
+  // </connect_client>
 
-    // <connect_client>
-    // Use connect method to connect to the server
-    await client.connect();
-    // </connect_client>
+  // <upsert>
+  const product = {
+    category: 'gear-surf-surfboards',
+    name: 'Yamba Surfboard 3',
+    quantity: 15,
+    sale: true,
+  };
 
-    // <upsert> 
-    const product = {
-        category: "gear-surf-surfboards",
-        name: "Yamba Surfboard 3",
-        quantity: 15,
-        sale: true
-    };
+  const query = { name: product.name };
+  const update = { $set: product };
+  const options = { upsert: true, new: true };
 
-    const query = { name: product.name};
-    const update = { $set: product };
-    const options = {upsert: true, new: true};
+  const upsertResult = await client
+    .db('adventureworks')
+    .collection('products')
+    .updateOne(query, update, options);
 
-    const upsertResult = await client.db("adventureworks").collection('products').updateOne(query, update, options);
-    
-    console.log(`Upsert result:\t\n${Object.keys(upsertResult).map(key => `\t${key}: ${upsertResult[key]}\n`)}`);
-    // </upsert>
+  console.log(
+    `Upsert result:\t\n${Object.keys(upsertResult).map(key => `\t${key}: ${upsertResult[key]}\n`)}`
+  );
+  // </upsert>
 
-
-    return "done";
+  return 'done';
 }
 
 main()
@@ -50,7 +53,7 @@ main()
   .catch(console.error)
   .finally(() => {
     // Close the db and its underlying connections
-    client.close()
+    client.close();
   });
 
 /*

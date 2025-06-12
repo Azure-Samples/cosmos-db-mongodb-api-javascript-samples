@@ -2,7 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
 
-// <package_dependencies> 
+// <package_dependencies>
 // Read .env file and set environment variables
 require('dotenv').config();
 
@@ -10,28 +10,31 @@ require('dotenv').config();
 const { MongoClient } = require('mongodb');
 // </package_dependencies>
 
-// <client_credentials> 
+// <client_credentials>
 // New instance of MongoClient with connection string
 // for Cosmos DB
-const url = process.env.COSMOS_CONNECTION_STRING;
+const url = process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING;
 const client = new MongoClient(url);
 // </client_credentials>
 
-async function main(){
+async function main() {
+  // <connect_client>
+  // Use connect method to connect to the server
+  await client.connect();
+  // </connect_client>
 
-    // <connect_client>
-    // Use connect method to connect to the server
-    await client.connect();
-    // </connect_client>
+  // <collection>
+  // Get all indexes in collection
+  const collectionInstance = await client
+    .db('adventureworks')
+    .collection('products');
+  const indexes = await collectionInstance.indexes();
+  console.log(
+    `Indexes on collection:\n${Object.keys(indexes).map(key => `\t${key}: ${JSON.stringify(indexes[key])}\n`)}`
+  );
+  // </collection>
 
-    // <collection> 
-    // Get all indexes in collection
-    const collectionInstance = await client.db("adventureworks").collection('products')
-    const indexes = await collectionInstance.indexes();
-    console.log(`Indexes on collection:\n${Object.keys(indexes).map(key => `\t${key}: ${JSON.stringify(indexes[key])}\n`)}`);
-    // </collection>
-
-    return "done";
+  return 'done';
 }
 
 main()
@@ -39,7 +42,7 @@ main()
   .catch(console.error)
   .finally(() => {
     // Close the db and its underlying connections
-    client.close()
+    client.close();
   });
 
 /*

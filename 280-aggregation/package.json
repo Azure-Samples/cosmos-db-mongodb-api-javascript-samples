@@ -1,5 +1,5 @@
 {
-  "name": "275-find",
+  "name": "280-aggregation",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.1",
-    "mongodb": "^4.7.0"
+"mongodb": "^6.17.0"
   }
 }
