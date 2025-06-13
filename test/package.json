@@ -1,0 +1,16 @@
+{
+  "name": "cosmos-db-mongodb-tests",
+  "version": "1.0.0",
+  "description": "Unit tests for Azure Cosmos DB MongoDB API JavaScript samples",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest --watch"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0"
+  }
+}
