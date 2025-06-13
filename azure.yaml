@@ -9,24 +9,21 @@ hooks:
     posix:
       shell: sh
       run: |
-        echo "Creating root .env file from azd environment variables..."
+        echo "sh: Creating root .env file from azd environment variables…"
         azd env get-values > .env
-        echo "✅ Root .env file created successfully"
-        echo ""
-        echo "Loading environment variables into hook process..."
         eval "$(azd env get-values)"
-        echo "✅ Environment variables loaded:"
-        echo "  AZURE_ENV_NAME=$AZURE_ENV_NAME"
-        echo "  AZURE_LOCATION=$AZURE_LOCATION" 
-        echo "  AZURE_RESOURCE_GROUP=$AZURE_RESOURCE_GROUP"
-        echo "  AZURE_COSMOS_DB_MONGODB_DATABASE_NAME=$AZURE_COSMOS_DB_MONGODB_DATABASE_NAME"
-        echo "  AZURE_COSMOS_DB_MONGODB_COLLECTION_NAME=$AZURE_COSMOS_DB_MONGODB_COLLECTION_NAME"
-        echo ""
-        echo "📁 .env file created with all variables for workspace packages"
-        echo "🔄 To load these variables into your current shell, run:"
-        echo "    source ./load-azure-env.sh"
-        echo "    # or"
-        echo "    eval \"\$(azd env get-values)\""
+        echo "Running AdventureWorks setup script…"
+        ./scripts/create-adventureworks.sh
+        
+    windows:
+      shell: pwsh
+      run: |
+        Write-Host "pwsh: Creating root .env file from azd environment variables…"
+        azd env get-values > .env
+        Invoke-Expression "azd env get-values"
+        Write-Host "Running AdventureWorks setup script…"
+        ./scripts/create-adventureworks.sh
+
 
 services:
 pipeline:

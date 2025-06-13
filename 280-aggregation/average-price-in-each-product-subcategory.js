@@ -2,8 +2,8 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
 
-// <aggregation_1> 
-// Goal: Find the average price of each product subcategory with 
+// <aggregation_1>
+// Goal: Find the average price of each product subcategory with
 // the number of products in that subcategory.
 // Sort by average price descending.
 
@@ -18,10 +18,8 @@ import { MongoClient } from 'mongodb';
 const url = process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING;
 const client = new MongoClient(url);
 
-async function main() {
-
+export async function main() {
   try {
-
     // Use connect method to connect to the server
     await client.connect();
 
@@ -29,14 +27,14 @@ async function main() {
     // Find average price of each category
     // Count # of products in each category
     const groupByCategory = {
-      '$group': {
-        '_id': '$categoryName',
-        'averagePrice': {
-          '$avg': '$price'
+      $group: {
+        _id: '$categoryName',
+        averagePrice: {
+          $avg: '$price',
         },
-        'countOfProducts': {
-          '$sum': 1
-        }
+        countOfProducts: {
+          $sum: 1,
+        },
       },
     };
 
@@ -46,23 +44,19 @@ async function main() {
     // Round prices to 2 decimal places
     // Rename property for countOfProducts to nProducts
     const additionalTransformations = {
-      '$project': {
-        '_id': 0,
-        'category': '$_id',
-        'nProducts':'$countOfProducts',
-        'averagePrice': { '$round': ['$averagePrice', 2] }
-      }
+      $project: {
+        _id: 0,
+        category: '$_id',
+        nProducts: '$countOfProducts',
+        averagePrice: { $round: ['$averagePrice', 2] },
+      },
     };
 
     // Sort by average price descending
-    const sort = { '$sort': { '$averagePrice': -1 } };
+    const sort = { $sort: { $averagePrice: -1 } };
 
     // stages execute in order from top to bottom
-    const pipeline = [
-      groupByCategory,
-      additionalTransformations,
-      sort
-    ];
+    const pipeline = [groupByCategory, additionalTransformations, sort];
 
     const db = 'adventureworks';
     const collection = 'products';
@@ -86,7 +80,7 @@ main()
   .catch(console.error)
   .finally(() => {
     // Close the db and its underlying connections
-    client.close()
+    client.close();
   });
 
 // Results:

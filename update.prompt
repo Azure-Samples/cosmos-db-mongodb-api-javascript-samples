@@ -1,9 +1,0 @@
-Update workspaces to use these dependencies versions:
-"dotenv": "^16.0.1",
-"mongodb": "^6.17.0"
-Update all workspaces to use Prettier to format the code to 80 characters per line
-Update workspaces to use ESM with type:module
-Update workspaces to use ESM instead of requires
-Update all index.js to export the main function so it can be part of a test pass
-Add vite tests to import that main function and validate the functionality
-Add scripts to root package.json to run the tests

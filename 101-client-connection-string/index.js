@@ -2,12 +2,15 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
 
-// <package_dependencies>
-// Read .env file and set environment variables
-require('dotenv').config();
+import dotenv from 'dotenv';
+import path from 'path';
+const __dirname = path.resolve();
 
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+// <package_dependencies>
 // Use official mongodb driver to connect to the server
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb';
 // </package_dependencies>
 
 // <client_credentials>
