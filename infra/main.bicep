@@ -38,5 +38,5 @@ module cosmosDbAccountVCore 'br/public:avm/res/document-db/mongo-cluster:0.4.0' 
 
 
 // Outputs
-output AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING string = cosmosDbAccountVCore.outputs.connectionString
+output COSMOS_CONNECTION_STRING string = cosmosDbAccountVCore.outputs.connectionString
 output AZURE_COSMOS_ACCOUNT_NAME string = cosmosDbAccountVCore.outputs.name

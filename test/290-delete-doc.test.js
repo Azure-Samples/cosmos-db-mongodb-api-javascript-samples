@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock environment variables
-process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING =
+process.env.COSMOS_CONNECTION_STRING =
   'mongodb://mocked-connection-string';
 
 // Create mock objects

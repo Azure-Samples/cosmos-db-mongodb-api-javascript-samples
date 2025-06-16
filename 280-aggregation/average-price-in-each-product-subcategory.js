@@ -15,7 +15,7 @@ import { MongoClient } from 'mongodb';
 
 // New instance of MongoClient with connection string
 // for Cosmos DB
-const url = process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING;
+const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
 
 export async function main() {
