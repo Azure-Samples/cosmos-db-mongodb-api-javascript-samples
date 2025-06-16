@@ -144,16 +144,12 @@ vi.mock('mongodb', () => ({
   MongoClient: vi.fn(() => mockClient),
 }));
 
-describe('200-admin Sample', () => {
+describe('{{TEST_NAME}}', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('should execute main function successfully', async () => {
-        // Import the main function
-    const { main } = await import('../200-admin/index.js');
-
-    // Execute the main function
-    await expect(main()).resolves.not.toThrow();
+  it('should execute {{TEST_TYPE}} successfully', async () => {
+    {{TEST_BODY}}
   });
 });
