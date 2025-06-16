@@ -2,33 +2,37 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
 
-// <package_dependencies> 
-// Read .env file and set environment variables
-require('dotenv').config();
+import dotenv from 'dotenv';
+import path from 'path';
+const __dirname = path.resolve();
 
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+// <package_dependencies>
 // Use official mongodb driver to connect to the server
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb';
 // </package_dependencies>
 
-// <client_credentials> 
+// <client_credentials>
 // New instance of MongoClient with connection string
 // for Cosmos DB
-const url = process.env.COSMOS_CONNECTION_STRING;
+const url = process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING;
 const client = new MongoClient(url);
 
 // connect to the server
 await client.connect();
 
 // client options
-const options = client.options
-console.log(`Options:\n${Object.keys(options).map(key => `\t${key}: ${options[key]}\n`)}`);
+const options = client.options;
+console.log(
+  `Options:\n${Object.keys(options).map(key => `\t${key}: ${options[key]}\n`)}`
+);
 // </client_credentials>
 
 // <client_disconnect>
 // Close the db and its underlying connections
 client.close();
 // </client_disconnect>
-
 
 /*
 // <console_result>

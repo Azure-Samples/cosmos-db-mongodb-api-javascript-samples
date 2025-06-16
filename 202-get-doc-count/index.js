@@ -2,36 +2,38 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
 
-// <package_dependencies> 
-// Read .env file and set environment variables
-require('dotenv').config();
+import dotenv from 'dotenv';
+import path from 'path';
+const __dirname = path.resolve();
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+// <package_dependencies>
 
 // Use official mongodb driver to connect to the server
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb';
 // </package_dependencies>
 
-// <client_credentials> 
+// <client_credentials>
 // New instance of MongoClient with connection string
 // for Cosmos DB
-const url = process.env.COSMOS_CONNECTION_STRING;
+const url = process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING;
 const client = new MongoClient(url);
 // </client_credentials>
 
-async function main() {
-
+export async function main() {
   // <connect_client>
   // Use connect method to connect to the server
   await client.connect();
   // </connect_client>
 
-  // <database_object> 
+  // <database_object>
   // get list of databases
   const listResult = await client.db().admin().listDatabases();
-  console.log("Databases:\n");
+  console.log('Databases:\n');
 
   // loop through databases
   for await (let database of listResult.databases) {
-
     console.log(`\t${database.name}\n`);
 
     // get database client
@@ -39,11 +41,10 @@ async function main() {
 
     // get collections in database
     const collections = await dbClient.listCollections();
-    console.log("\n\t\tCollections:\n");
+    console.log('\n\t\tCollections:\n');
 
     // loop through collections
     for await (let collection of collections) {
-      
       // get collection client
       const collectionClient = dbClient.collection(collection.name);
 
@@ -52,9 +53,9 @@ async function main() {
       console.log(`\t\t\t${collection.name}: ${docCount} doc(s)\n`);
     }
   }
-  // </database_object> 
+  // </database_object>
 
-  return "done";
+  return 'done';
 }
 
 main()
@@ -62,9 +63,8 @@ main()
   .catch(console.error)
   .finally(() => {
     // Close the db and its underlying connections
-    client.close()
+    client.close();
   });
-
 
 /*
 // <console_result>
