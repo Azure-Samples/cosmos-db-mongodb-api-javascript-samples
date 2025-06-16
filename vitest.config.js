@@ -13,15 +13,15 @@ export default defineConfig({
         '**/coverage/**',
         '**/scripts/**',
         '**/infra/**',
-        '**/data/**'
+        '**/data/**',
       ],
       thresholds: {
         lines: 80,
         functions: 80,
         branches: 70,
-        statements: 80
-      }
+        statements: 80,
+      },
     },
     globals: true,
-  }
+  },
 });

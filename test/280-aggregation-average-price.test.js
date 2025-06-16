@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock environment variables
-process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING = 'mongodb://mocked-connection-string';
+process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING =
+  'mongodb://mocked-connection-string';
 
 // Create mock objects
 const mockCollection = {
@@ -20,15 +21,17 @@ const mockCollection = {
   indexes: vi.fn(),
   drop: vi.fn(),
   aggregate: vi.fn(),
-  get collectionName() { return 'products'; }
+  get collectionName() {
+    return 'products';
+  },
 };
 
 const mockAdmin = {
   serverInfo: vi.fn(),
   serverStatus: vi.fn(),
   listDatabases: vi.fn().mockResolvedValue({
-    databases: [{ name: 'adventureworks' }, { name: 'testdb' }]
-  })
+    databases: [{ name: 'adventureworks' }, { name: 'testdb' }],
+  }),
 };
 
 const mockDatabase = {
@@ -40,21 +43,27 @@ const mockDatabase = {
       yield { name: 'products' };
       yield { name: 'customers' };
     },
-    toArray: vi.fn().mockResolvedValue([{ name: 'products' }, { name: 'customers' }])
+    toArray: vi
+      .fn()
+      .mockResolvedValue([{ name: 'products' }, { name: 'customers' }]),
   })),
-  get databaseName() { return 'adventureworks'; }
+  get databaseName() {
+    return 'adventureworks';
+  },
 };
 
 const mockClient = {
   connect: vi.fn(),
   close: vi.fn(),
   db: vi.fn(() => mockDatabase),
-  get readPreference() { return { mode: 'primary' }; }
+  get readPreference() {
+    return { mode: 'primary' };
+  },
 };
 
 // Mock the entire mongodb module
 vi.mock('mongodb', () => ({
-  MongoClient: vi.fn(() => mockClient)
+  MongoClient: vi.fn(() => mockClient),
 }));
 
 describe('Get Document Count Sample', () => {

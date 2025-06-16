@@ -4,23 +4,23 @@ A collection of## Examples
 
 The following table shows all the numbered example directories and what each demonstrates:
 
-| Directory | Name | Description |
-|-----------|------|-------------|
-| `001-quickstart` | Basic CRUD Operations | Complete example showing database/collection creation, document insertion with upsert, point reads, indexing, and queries |
-| `101-client-connection-string` | Client Connection Options | Demonstrates connecting to Cosmos DB and displaying all MongoDB client connection options and settings |
-| `200-admin` | Server Administration | Shows how to get server information, check server status, and list all databases using admin commands |
-| `201-does-database-exist` | Database Existence Check | Checks if a specific database exists by listing all databases and searching for a target database name |
-| `202-get-doc-count` | Document Counting | Lists all databases and collections, then counts the number of documents in each collection |
-| `203-insert-doc` | Document Insertion | Demonstrates inserting single documents with `insertOne()` and multiple documents with `insertMany()` |
-| `225-get-collection-indexes` | Index Management | Shows how to retrieve and display all indexes on a collection |
-| `250-upsert-doc` | Document Upsert | Demonstrates upsert operations (insert or update) using `updateOne()` with the upsert option |
-| `251-bulk_write` | Bulk Operations | Shows how to perform multiple operations (insert, update) in a single bulk write operation |
-| `252-insert-many` | Bulk Data Import | Demonstrates importing data from JSON files using `insertMany()` for customers and products collections |
-| `275-find` | Query Operations | Comprehensive example of different find operations: point reads, queries by unique/non-unique values, find all, and pagination |
-| `280-aggregation` | Aggregation Pipeline | Contains two aggregation examples: calculating average prices by category and finding price ranges for bike subcategories |
-| `290-delete-doc` | Document Deletion | Shows how to delete single documents with `deleteOne()` and multiple documents with `deleteMany()` |
-| `299-drop-collection` | Collection Removal | Demonstrates dropping/deleting entire collections from the database |
-| `300-drop-database` | Database Removal | Shows how to drop/delete an entire database |
+| Directory                      | Name                      | Description                                                                                                                    |
+| ------------------------------ | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `001-quickstart`               | Basic CRUD Operations     | Complete example showing database/collection creation, document insertion with upsert, point reads, indexing, and queries      |
+| `101-client-connection-string` | Client Connection Options | Demonstrates connecting to Cosmos DB and displaying all MongoDB client connection options and settings                         |
+| `200-admin`                    | Server Administration     | Shows how to get server information, check server status, and list all databases using admin commands                          |
+| `201-does-database-exist`      | Database Existence Check  | Checks if a specific database exists by listing all databases and searching for a target database name                         |
+| `202-get-doc-count`            | Document Counting         | Lists all databases and collections, then counts the number of documents in each collection                                    |
+| `203-insert-doc`               | Document Insertion        | Demonstrates inserting single documents with `insertOne()` and multiple documents with `insertMany()`                          |
+| `225-get-collection-indexes`   | Index Management          | Shows how to retrieve and display all indexes on a collection                                                                  |
+| `250-upsert-doc`               | Document Upsert           | Demonstrates upsert operations (insert or update) using `updateOne()` with the upsert option                                   |
+| `251-bulk_write`               | Bulk Operations           | Shows how to perform multiple operations (insert, update) in a single bulk write operation                                     |
+| `252-insert-many`              | Bulk Data Import          | Demonstrates importing data from JSON files using `insertMany()` for customers and products collections                        |
+| `275-find`                     | Query Operations          | Comprehensive example of different find operations: point reads, queries by unique/non-unique values, find all, and pagination |
+| `280-aggregation`              | Aggregation Pipeline      | Contains two aggregation examples: calculating average prices by category and finding price ranges for bike subcategories      |
+| `290-delete-doc`               | Document Deletion         | Shows how to delete single documents with `deleteOne()` and multiple documents with `deleteMany()`                             |
+| `299-drop-collection`          | Collection Removal        | Demonstrates dropping/deleting entire collections from the database                                                            |
+| `300-drop-database`            | Database Removal          | Shows how to drop/delete an entire database                                                                                    |
 
 ## Demo
 
@@ -53,12 +53,14 @@ This project provides the following features:
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/Azure-Samples/cosmos-db-mongodb-api-javascript-samples.git
    cd cosmos-db-mongodb-api-javascript-samples
    ```
 
 2. Open in development container:
+
    - Open the project in VS Code
    - When prompted, select "Reopen in Container" or use `Ctrl+Shift+P` → "Dev Containers: Reopen in Container"
 
@@ -97,6 +99,7 @@ Each sample directory references the root `.env` file for Azure Cosmos DB connec
 The included samples demonstrate:
 
 1. **Basic Operations** (`001-quickstart`):
+
    - Connect to Azure Cosmos DB MongoDB vCore
    - Create database and collection
    - Insert, update, and query documents

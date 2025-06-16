@@ -1,75 +1,76 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock environment variables
-process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING = 'mongodb://localhost:27017';
+process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING =
+  'mongodb://localhost:27017';
 
 // Create mock objects
 const mockCollection = {
   insertOne: vi.fn().mockResolvedValue({
     acknowledged: true,
-    insertedId: 'mock-id-123'
+    insertedId: 'mock-id-123',
   }),
   insertMany: vi.fn().mockResolvedValue({
     acknowledged: true,
     insertedCount: 2,
-    insertedIds: ['mock-id-456', 'mock-id-789']
+    insertedIds: ['mock-id-456', 'mock-id-789'],
   }),
   findOne: vi.fn().mockResolvedValue({
     _id: 'mock-id-123',
-    name: 'Mock Product'
+    name: 'Mock Product',
   }),
   find: vi.fn(() => ({
     toArray: vi.fn().mockResolvedValue([
       { _id: 'mock-id-1', name: 'Product 1' },
-      { _id: 'mock-id-2', name: 'Product 2' }
-    ])
+      { _id: 'mock-id-2', name: 'Product 2' },
+    ]),
   })),
   updateOne: vi.fn().mockResolvedValue({
     acknowledged: true,
     matchedCount: 1,
-    modifiedCount: 1
+    modifiedCount: 1,
   }),
   updateMany: vi.fn().mockResolvedValue({
     acknowledged: true,
     matchedCount: 2,
-    modifiedCount: 2
+    modifiedCount: 2,
   }),
   deleteOne: vi.fn().mockResolvedValue({
     acknowledged: true,
-    deletedCount: 1
+    deletedCount: 1,
   }),
   deleteMany: vi.fn().mockResolvedValue({
     acknowledged: true,
-    deletedCount: 5
+    deletedCount: 5,
   }),
   replaceOne: vi.fn().mockResolvedValue({
     acknowledged: true,
     matchedCount: 1,
-    modifiedCount: 1
+    modifiedCount: 1,
   }),
   bulkWrite: vi.fn().mockResolvedValue({
     acknowledged: true,
     insertedCount: 2,
     matchedCount: 1,
     modifiedCount: 1,
-    deletedCount: 0
+    deletedCount: 0,
   }),
   countDocuments: vi.fn().mockResolvedValue(42),
   createIndex: vi.fn().mockResolvedValue('mock-index-name'),
   getIndexes: vi.fn().mockResolvedValue([
     { v: 1, key: { _id: 1 }, name: '_id_' },
-    { v: 1, key: { name: 1 }, name: 'name_1' }
+    { v: 1, key: { name: 1 }, name: 'name_1' },
   ]),
   indexes: vi.fn().mockResolvedValue([
     { v: 1, key: { _id: 1 }, name: '_id_' },
-    { v: 1, key: { name: 1 }, name: 'name_1' }
+    { v: 1, key: { name: 1 }, name: 'name_1' },
   ]),
   drop: vi.fn().mockResolvedValue(true),
   aggregate: vi.fn(() => ({
     toArray: vi.fn().mockResolvedValue([
       { _id: 'category1', averagePrice: 100 },
-      { _id: 'category2', averagePrice: 200 }
-    ])
+      { _id: 'category2', averagePrice: 200 },
+    ]),
   })),
   get collectionName() {
     return 'products';
@@ -82,25 +83,19 @@ const mockAdmin = {
     versionArray: [4, 0, 0, 0],
     bits: 64,
     maxBsonObjectSize: 16777216,
-    ok: 1
+    ok: 1,
   }),
   serverStatus: vi.fn().mockResolvedValue({
     ok: 1,
-    uptime: 12345
+    uptime: 12345,
   }),
   listDatabases: vi.fn().mockResolvedValue({
-    databases: [
-      { name: 'adventureworks' },
-      { name: 'testdb' }
-    ]
+    databases: [{ name: 'adventureworks' }, { name: 'testdb' }],
   }),
 };
 
 // Mock collections that can be used as async iterator
-const mockCollections = [
-  { name: 'products' },
-  { name: 'customers' }
-];
+const mockCollections = [{ name: 'products' }, { name: 'customers' }];
 
 const mockDatabase = {
   collection: vi.fn(() => mockCollection),
@@ -115,7 +110,7 @@ const mockDatabase = {
           yield collection;
         }
       },
-      toArray: vi.fn().mockResolvedValue(mockCollections)
+      toArray: vi.fn().mockResolvedValue(mockCollections),
     };
     return iterator;
   }),
@@ -132,7 +127,7 @@ const mockClient = {
     host: 'mocked-host',
     port: 27017,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   },
   get readPreference() {
     return { mode: 'primary' };
@@ -150,7 +145,7 @@ describe('251-bulk_write Sample', () => {
   });
 
   it('should execute main function successfully', async () => {
-        // Import the main function
+    // Import the main function
     const { main } = await import('../251-bulk_write/index.js');
 
     // Execute the main function

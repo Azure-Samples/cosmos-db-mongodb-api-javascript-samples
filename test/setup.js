@@ -1,7 +1,8 @@
 import { vi, beforeEach } from 'vitest';
 
 // Mock environment variables
-process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING = 'mongodb://mocked-connection-string';
+process.env.AZURE_COSMOS_DB_MONGODB_CONNECTION_STRING =
+  'mongodb://mocked-connection-string';
 
 // Create the mock objects outside of the vi.mock call
 const createMockCollection = () => ({
@@ -50,7 +51,7 @@ const createMockDatabase = (mockCollection, mockAdmin) => ({
   },
 });
 
-const createMockClient = (mockDatabase) => ({
+const createMockClient = mockDatabase => ({
   connect: vi.fn(),
   close: vi.fn(),
   db: vi.fn(() => mockDatabase),
@@ -71,14 +72,14 @@ vi.mock('mongodb', () => ({
 // Reset all mocks before each test but preserve mock implementations
 beforeEach(() => {
   vi.clearAllMocks();
-  
+
   // Re-setup mock return values after clearing
   mockDatabase.admin.mockReturnValue(mockAdmin);
   mockDatabase.collection.mockReturnValue(mockCollection);
   mockDatabase.listCollections.mockReturnValue({
     toArray: vi.fn(),
   });
-  
+
   mockCollection.find.mockReturnValue({
     toArray: vi.fn(),
     limit: vi.fn().mockReturnThis(),
