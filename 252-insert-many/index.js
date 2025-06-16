@@ -29,7 +29,8 @@ export async function main() {
   // </connect_client>
 
   // <get_data_from_file>
-  const data = await fs.readFile('customers.json');
+  const filePath = path.join(__dirname, './data/customers.json');
+  const data = await fs.readFile(filePath);
   const docs = JSON.parse(data.toString());
   const insertManyResponse1 = await client
     .db('adventureworks')
@@ -39,7 +40,8 @@ export async function main() {
   // </get_data_from_file>
 
   // <get_data_from_file_2>
-  const data2 = await fs.readFile('products.json');
+  const filePath2 = path.join(__dirname, './data/products.json');
+  const data2 = await fs.readFile(filePath2);
   const docs2 = JSON.parse(data2.toString());
   const insertManyResponse2 = await client
     .db('adventureworks')
